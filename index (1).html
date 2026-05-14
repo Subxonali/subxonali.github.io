@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nishonov Subxonali — Business Intelligence Analyst</title>
+<meta name="description" content="Nishonov Subxonali — Business Intelligence Analyst. Ma'lumotlardan biznes qarorlari chiqarish mutaxassisi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --faint: #f0ede8;
+    --accent: #c8a97e;
+    --accent2: #4a6fa5;
+    --white: #faf9f7;
+    --border: rgba(0,0,0,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 4rem;
+    background: rgba(250,249,247,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s;
+  }
+  nav.scrolled { padding: 0.9rem 4rem; }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 1.5px;
+    background: var(--ink); transition: all 0.3s;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 4rem; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 5rem;
+    padding-top: 9rem;
+    padding-bottom: 4rem;
+  }
+  .hero-text { animation: fadeUp 0.9s ease both; }
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    border: 1px solid var(--accent2);
+    border-radius: 20px;
+    padding: 5px 16px;
+    margin-bottom: 1.75rem;
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.4rem);
+    line-height: 1.08;
+    margin-bottom: 1.4rem;
+    letter-spacing: -0.02em;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .hero-desc {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 430px;
+    margin-bottom: 2.5rem;
+    line-height: 1.85;
+  }
+  .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 26px;
+    border-radius: 40px;
+    font-size: 14px; font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-primary { background: var(--ink); color: var(--white); }
+  .btn-primary:hover { background: #333; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+  .btn-outline:hover { border-color: var(--ink); transform: translateY(-2px); }
+
+  .hero-visual {
+    display: flex; flex-direction: column; gap: 1.25rem;
+    animation: fadeUp 0.9s 0.18s ease both;
+  }
+  .hero-card {
+    background: var(--faint);
+    border-radius: 20px;
+    padding: 1.75rem;
+    border: 1px solid var(--border);
+  }
+  .card-label { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .card-value { font-size: 2rem; font-weight: 500; font-family: 'DM Serif Display', serif; }
+  .card-change { font-size: 12px; color: #4caf50; margin-top: 2px; }
+
+  .mini-chart { display: flex; align-items: flex-end; gap: 7px; height: 64px; margin-top: 16px; }
+  .bar {
+    flex: 1; border-radius: 4px 4px 0 0;
+    animation: barGrow 0.9s ease both;
+    transform-origin: bottom;
+  }
+  .bar:nth-child(1) { height: 38%; background: var(--accent2); opacity: 0.5; animation-delay: 0.3s; }
+  .bar:nth-child(2) { height: 62%; background: var(--accent2); opacity: 0.65; animation-delay: 0.42s; }
+  .bar:nth-child(3) { height: 48%; background: var(--accent2); opacity: 0.55; animation-delay: 0.54s; }
+  .bar:nth-child(4) { height: 78%; background: var(--accent); opacity: 1; animation-delay: 0.66s; }
+  .bar:nth-child(5) { height: 68%; background: var(--accent2); opacity: 0.75; animation-delay: 0.78s; }
+  .bar:nth-child(6) { height: 88%; background: var(--accent); opacity: 1; animation-delay: 0.90s; }
+  .bar:nth-child(7) { height: 72%; background: var(--accent2); opacity: 0.8; animation-delay: 1.02s; }
+
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .stat-mini {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.1rem 0.75rem;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  .stat-mini:hover { transform: translateY(-2px); }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--ink); }
+  .stat-lbl { font-size: 11px; color: var(--muted); margin-top: 3px; letter-spacing: 0.02em; }
+
+  /* ── ABOUT ── */
+  .about { background: var(--faint); }
+  .about-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+  .section-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+  }
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.9rem, 3.5vw, 3rem);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.015em;
+  }
+  .about-text { color: var(--muted); font-size: 16px; line-height: 1.9; }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 3.5rem;
+  }
+  .skill-item {
+    background: var(--white);
+    padding: 2rem 1.75rem;
+    transition: background 0.25s;
+    cursor: default;
+  }
+  .skill-item:hover { background: var(--faint); }
+  .skill-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+  .skill-name { font-weight: 500; font-size: 14px; margin-bottom: 6px; }
+  .skill-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .skill-level {
+    margin-top: 12px;
+    height: 3px;
+    background: var(--faint);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .skill-bar { height: 100%; background: var(--accent2); border-radius: 4px; transition: width 1s ease; }
+
+  /* ── PROJECTS ── */
+  .projects { background: var(--faint); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .project-card {
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+    background: var(--white);
+    display: flex; flex-direction: column;
+  }
+  .project-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(0,0,0,0.09); }
+  .project-header { padding: 1.75rem 1.75rem 1.25rem; border-bottom: 1px solid var(--border); }
+  .project-tag {
+    display: inline-block;
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent2);
+    background: rgba(74,111,165,0.08);
+    padding: 4px 12px; border-radius: 20px;
+    margin-bottom: 0.75rem;
+  }
+  .project-title { font-weight: 500; font-size: 16px; line-height: 1.45; }
+  .project-body { padding: 1.75rem; flex: 1; }
+  .project-desc { font-size: 13px; color: var(--muted); line-height: 1.75; }
+  .project-footer {
+    padding: 1.25rem 1.75rem;
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+  }
+  .tag {
+    font-size: 11px;
+    background: var(--faint);
+    color: var(--muted);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+  }
+
+  /* ── CONTACT ── */
+  .contact {
+    background: var(--ink);
+    color: var(--white);
+    text-align: center;
+  }
+  .contact .section-label { color: rgba(255,255,255,0.35); }
+  .contact h2 { color: var(--white); }
+  .contact .about-text { color: rgba(255,255,255,0.5); max-width: 500px; margin: 0 auto; }
+  .contact-cta { margin-top: 2.5rem; }
+  .btn-gold { background: var(--accent); color: var(--ink); font-weight: 500; }
+  .btn-gold:hover { background: #d4b88f; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,169,126,0.3); }
+  .contact-links {
+    display: flex; justify-content: center; gap: 2rem;
+    margin-top: 2.5rem; flex-wrap: wrap;
+  }
+  .contact-link {
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .contact-link:hover { color: var(--white); }
+  .contact-divider {
+    width: 40px; height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 3rem auto 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 1.75rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes barGrow {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    nav.scrolled { padding: 0.8rem 2rem; }
+    .nav-links { display: none; flex-direction: column; gap: 1.25rem; position: absolute; top: 100%; left: 0; right: 0; background: rgba(250,249,247,0.98); padding: 2rem; border-bottom: 1px solid var(--border); }
+    .nav-links.open { display: flex; }
+    .hamburger { display: flex; }
+    section { padding: 5rem 2rem; }
+    .hero { grid-template-columns: 1fr; gap: 3rem; padding-top: 7rem; min-height: auto; }
+    .hero-desc { max-width: 100%; }
+    footer { padding: 1.25rem 2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+
+  @media (max-width: 500px) {
+    h1 { font-size: 2.4rem; }
+    .stats-row { grid-template-columns: repeat(3,1fr); }
+    .stat-num { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">N. Subxonali</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" onclick="closeMenu()">Haqimda</a></li>
+    <li><a href="#skills" onclick="closeMenu()">Ko'nikmalar</a></li>
+    <li><a href="#projects" onclick="closeMenu()">Loyihalar</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Aloqa</a></li>
+  </ul>
+  <button class="hamburger" id="menuBtn" aria-label="Menyu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-text">
+    <span class="hero-tag">BI Analyst · Toshkent, O'zbekiston</span>
+    <h1>Ma'lumotlardan<br><em>qaror</em> chiqarish<br>san'ati</h1>
+    <p class="hero-desc">Men, Nishonov Subxonali — biznes ma'lumotlarini chuqur tahlil qilib, kompaniyalarga to'g'ri strategik qarorlar qabul qilishda yordam beruvchi Business Intelligence mutaxassisiman.</p>
+    <div class="btn-group">
+      <a href="#projects" class="btn btn-primary">Loyihalarni ko'rish</a>
+      <a href="#contact" class="btn btn-outline">Bog'lanish</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="card-label">Oylik savdo tahlili · 2024</div>
+      <div class="card-value">+34.8%</div>
+      <div class="card-change">↑ o'tgan oyga nisbatan</div>
+      <div class="mini-chart">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-mini">
+        <div class="stat-num">3+</div>
+        <div class="stat-lbl">Yil tajriba</div>
+      </div>
+      <div class="stat-mini">
+        <div class="stat-num">20+</div>
+        <div class="stat-lbl">Loyihalar</div>
+      </div>
+      <div class="stat-mini">
+        <div class="stat-num">10+</div>
+        <div class="stat-lbl">Mijozlar</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner reveal">
+    <p class="section-label">Men haqimda</p>
+    <h2>Ma'lumot — bu<br>yangi neft</h2>
+    <p class="about-text">Men Business Intelligence yo'nalishida 3+ yil davomida ishlayman. Xom ma'lumotlarni vizual, tushunарли va amaliy tarzda taqdim etib, biznes uchun foydali ko'rsatkichlar va hisobotlar tayyorlayman. Mening ishim — murakkab raqamlarni oddiy va qarorga tayyor ma'lumotga aylantirishdir.</p>
+    <br><br>
+    <p class="about-text">Power BI, SQL, Python va Excel — mening asosiy qurollarim. Har bir loyihada nafaqat texnik yechim, balki biznes kontekstini ham inobatga olaman.</p>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="background: var(--white);">
+  <p class="section-label reveal" style="text-align:center;">Texnik ko'nikmalar</p>
+  <h2 class="reveal" style="text-align:center; max-width:480px; margin:0 auto 0.5rem;">Qanday vositalar bilan ishlayman</h2>
+  <div class="skills-grid reveal">
+    <div class="skill-item">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Power BI</div>
+      <div class="skill-desc">Interaktiv dashboardlar va real-time hisobotlar</div>
+      <div class="skill-level"><div class="skill-bar" style="width:92%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">🗄️</div>
+      <div class="skill-name">SQL</div>
+      <div class="skill-desc">Murakkab so'rovlar, optimallashtirish, stored procedures</div>
+      <div class="skill-level"><div class="skill-bar" style="width:88%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">📈</div>
+      <div class="skill-name">Excel & DAX</div>
+      <div class="skill-desc">Moliyaviy modellar, pivot jadvallar va formulalar</div>
+      <div class="skill-level"><div class="skill-bar" style="width:95%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">🐍</div>
+      <div class="skill-name">Python</div>
+      <div class="skill-desc">Pandas, matplotlib orqali tahlil va avtomatlashtirish</div>
+      <div class="skill-level"><div class="skill-bar" style="width:75%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">☁️</div>
+      <div class="skill-name">Azure & Cloud</div>
+      <div class="skill-desc">Azure Synapse, Data Factory, Blob Storage</div>
+      <div class="skill-level"><div class="skill-bar" style="width:68%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">🔄</div>
+      <div class="skill-name">ETL / Power Query</div>
+      <div class="skill-desc">Ma'lumotlarni tozalash, transformatsiya va yuklash</div>
+      <div class="skill-level"><div class="skill-bar" style="width:85%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <p class="section-label reveal" style="text-align:center;">Portfolio</p>
+  <h2 class="reveal" style="text-align:center;">Tanlangan loyihalar</h2>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-tag">Savdo tahlili</div>
+        <div class="project-title">Retail savdo ko'rsatkichlari dashboardi</div>
+      </div>
+      <div class="project-body">
+        <p class="project-desc">12 ta filial bo'yicha oylik va yillik savdo trendlarini kuzatuvchi real-time Power BI dashboardi. KPI monitoring, plan-fakt taqqoslash va avtomatik ogohlantirishlar tizimi.</p>
+      </div>
+      <div class="project-footer">
+        <span class="tag">Power BI</span><span class="tag">SQL</span><span class="tag">DAX</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-tag">Mijoz tahlili</div>
+        <div class="project-title">Mijozlarni segmentatsiya modeli</div>
+      </div>
+      <div class="project-body">
+        <p class="project-desc">RFM (Recency, Frequency, Monetary) tahlili asosida mijozlarni 5 ta segmentga bo'lish. Har segment uchun alohida marketing strategiyasi va daromadlilik tahlili.</p>
+      </div>
+      <div class="project-footer">
+        <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Power BI</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-tag">Moliyaviy tahlil</div>
+        <div class="project-title">Byudjet monitoring tizimi</div>
+      </div>
+      <div class="project-body">
+        <p class="project-desc">Kompaniya byudjeti va haqiqiy xarajatlar o'rtasidagi farqni avtomatik kuzatuvchi tizim. Har haftalik elektron pochta hisobotlari va variance tahlili.</p>
+      </div>
+      <div class="project-footer">
+        <span class="tag">Excel</span><span class="tag">Power Query</span><span class="tag">SQL</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-tag">Zanjir tahlili</div>
+        <div class="project-title">Ta'minot zanjiri optimallashtirish</div>
+      </div>
+      <div class="project-body">
+        <p class="project-desc">Ombor va yetkazib berish jarayonlarini tahlil qilib, ortiqcha xarajatlarni 18% ga kamaytirishga yordam bergan loyiha. Demand forecasting va ABC tahlili.</p>
+      </div>
+      <div class="project-footer">
+        <span class="tag">SQL</span><span class="tag">Power BI</span><span class="tag">Excel</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-tag">HR tahlili</div>
+        <div class="project-title">Xodimlar samaradorligi dashboardi</div>
+      </div>
+      <div class="project-body">
+        <p class="project-desc">HR bo'limi uchun xodimlar davomat, KPI bajarish va ish haqi xarajatlarini bir joyda ko'rsatuvchi interaktiv Power BI hisoboti.</p>
+      </div>
+      <div class="project-footer">
+        <span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">HR Analytics</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-tag">Avtomatlashtirish</div>
+        <div class="project-title">Haftalik hisobot avtomatlashuvi</div>
+      </div>
+      <div class="project-body">
+        <p class="project-desc">Qo'lda tayyorlanadigan 4 soatlik haftalik hisobotni Python va Power Automate yordamida 5 daqiqaga tushirildi. Har dushanba avtomatik yuboriladi.</p>
+      </div>
+      <div class="project-footer">
+        <span class="tag">Python</span><span class="tag">Power Automate</span><span class="tag">Excel</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <p class="section-label reveal">Aloqa</p>
+  <h2 class="reveal">Birgalikda ishlaylik</h2>
+  <p class="about-text reveal">Loyihangiz yoki savollaringiz bo'lsa, menga yozing. Yangi hamkorlik va qiziqarli BI loyihalariga har doim tayyorman.</p>
+  <div class="contact-cta reveal">
+    <a href="mailto:subxonalinishonovsss@gmail.com" class="btn btn-gold">✉️ Xat yuborish</a>
+  </div>
+  <div class="contact-links reveal">
+    <a href="https://www.linkedin.com/in/nishonov-subxonali/" target="_blank" class="contact-link">🔗 LinkedIn</a>
+    <a href="https://github.com/Subxonali/Power_BI" target="_blank" class="contact-link">🐙 GitHub</a>
+    <a href="https://t.me/Nishonov_Subxonali" target="_blank" class="contact-link">✈️ Telegram</a>
+  </div>
+  <div class="contact-divider"></div>
+</section>
+
+<footer>
+  <span>© 2024 Nishonov Subxonali</span>
+  <span>Business Intelligence Analyst · Toshkent</span>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('navLinks').classList.remove('open');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth anchor
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
